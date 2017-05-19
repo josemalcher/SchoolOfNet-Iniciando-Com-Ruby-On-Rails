@@ -42,7 +42,14 @@ Referências Boas
 
 ---
 
-## <a name="parte2"> </a>
+## <a name="parte2">Instalação</a>
+
+[railsinstaller](http://www.railsinstaller.org/pt-BR)
+
+[Configurando Ruby, Rails, MySQL e Git no Windows](https://nandovieira.com.br/configurando-ruby-rails-mysql-e-git-no-windows)
+
+[RubyGems](https://rubygems.org/)
+
 
 [Voltar ao Índice](#indice)
 
