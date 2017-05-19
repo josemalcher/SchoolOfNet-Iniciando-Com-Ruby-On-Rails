@@ -27,7 +27,16 @@ https://www.schoolofnet.com/curso-iniciando-com-ruby-rails/
 
 ---
 
-## <a name="parte1"> </a>
+## <a name="parte1">Introdução</a>
+
+
+Referências Boas
+
+[Ruby on Rails - coloque sua aplicação web nos trilhos](https://www.casadocodigo.com.br/products/livro-ruby-on-rails)
+
+[Desenv. Ágil para Web com Ruby on Rails](https://www.caelum.com.br/apostila-ruby-on-rails/)
+
+[Aprendendo Ruby e Rails, Livros e Guias](http://www.akitaonrails.com/2014/07/13/aprendendo-ruby-e-rails-livros-e-guias)
 
 [Voltar ao Índice](#indice)
 
