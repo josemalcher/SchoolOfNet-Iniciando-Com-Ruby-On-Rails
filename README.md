@@ -352,7 +352,15 @@ Para desfazer ou apagar um controller
 
 ---
 
-## <a name="parte8"> </a>
+## <a name="parte8">ActiveRecord</a>
+
+É um framework que implementa o acesso ao banco de dados de forma transparente ao usuário, funcionando como um Wrapper para seu modelo. Utilizando o conceito de Conventions over Configuration, o ActiveRecord adiciona aos seus modelos as funções necessárias para acessar o banco.
+
+ActiveRecord::Base é a classe que você deve estender para associar seu modelo com a tabela no Banco de Dados.
+
+[Active Record](https://www.caelum.com.br/apostila-ruby-on-rails/active-record/#7-1-motivacao)
+
+
 
 [Voltar ao Índice](#indice)
 
