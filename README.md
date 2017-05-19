@@ -100,7 +100,77 @@ O primeiro é MVC, que significa Model View Controller. Explicando de forma bem 
 
 ---
 
-## <a name="parte5"> </a>
+## <a name="parte5">Criando projeto rails</a>
+
+```
+$ rails new [nome-projeto]
+```
+
+Para utilizarmos o Rails, é necessário instalar a gem rails em nossa máquina através do comando gem install:
+
+```
+gem install rails
+```
+
+O comando acima, instalará a última versão estável do Rails. Caso queira, é possível também instalarmos uma versão específica passando-a conforme abaixo:
+
+```
+gem install rails -v=4.0.0
+```
+
+Após a instalação da gem rails em nossa máquina, ganhamos o comando que iremos utilizar para gerar os arquivos iniciais de nossa aplicação. Como a maioria dos comandos de terminal, podemos passar uma série de informações para que o projeto gerado seja customizado.
+
+Para conhecer mais sobre as opções disponíveis, podemos imprimir a ajuda no console. Para isso basta executar o seguinte comando:
+
+```
+rails --help
+```
+Atualmente o Rails está na versão 4, que é a versão utilizada no curso. Caso queira saber a versão do Rails instalada na máquina, é só rodar o comando:
+
+```
+rails --version
+```
+
+O Rails já vem com inúmeros scripts prontos para tornar a vida do programador mais fácil criando tudo que for necessário para desempenhar uma determinada tarefa. Estes scripts são chamados de geradores e um destes é o gerador new, que proporciona a criação da estrutura base de uma aplicação Rails. Para usá-lo, é só digitar no terminal o seguinte comando:
+
+```
+rails new [caminho-da-app]
+```
+
+Caso a pasta apontada como caminho da aplicação não exista, ela será criada pelo gerador do Rails. Caso a pasta exista e contenha arquivos que possam conflitar com os gerados pelo Rails será necessário informar a ação adequada (sobrescrever, não sobrescrever) para cada um deles durante o processo de geração de arquivos.
+
+O comando new suporta algumas opções a serem passadas no momento em que é chamado. Para visualizar todas as opções aceitas é só executar:
+
+```
+rails new -h
+```
+
+Dentre todas as opções, uma das mais úteis é a que prepara nossa aplicação para conexão com um banco de dados. Como o Rails é compatível com uma grande quantidade de bancos de dados podemos escolher aquele que temos mais familiaridade, ou um que já estiver instalado em nossa máquina. Por padrão o Rails usa o SQLite3 pois é bem simples, versátil e consegue se comportar bem em um ambiente de desenvolvimento, além de possibilitar que as informações sejam salvas em qualquer local do sistema de arquivos (por padrão dentro da aplicação) e está disponível para Windows, Mac e Linux.
+
+Caso queira utilizar, por exemplo, o MySQL, basta passar a opção:
+
+```
+rails new meu_projeto -d mysql
+```
+
+[6.4 - Criando um novo projeto Rails](https://www.caelum.com.br/apostila-ruby-on-rails/ruby-on-rails/#6-4-criando-um-novo-projeto-rails)
+
+Cada diretório tem uma função específica e bem clara na aplicação:
+
+- app - A maioria dos arquivos específicos da nossa aplicação ficam aqui (inclusive todo o MVC, dividido em diretórios);
+- bin - Executáveis do Rails e das gems instaladas;
+- config - Configurações da aplicação;
+- db - Migrações, esquema e outros arquivos relacionados ao banco de dados;
+- doc - Documentação do sistema;
+- lib - Bibliotecas auxiliares;
+- log - Informações de log;
+- public - Arquivos estáticos que serão servidos pela WEB;
+- test - Testes da nossa aplicação;
+- tmp - Arquivos temporários como cache e informações de sessões;
+- vendor - Dependências e bibliotecas de terceiros.
+
+[6.6 - Estrutura dos diretórios](https://www.caelum.com.br/apostila-ruby-on-rails/ruby-on-rails/#6-6-estrutura-dos-diretorios)
+
 
 [Voltar ao Índice](#indice)
 
