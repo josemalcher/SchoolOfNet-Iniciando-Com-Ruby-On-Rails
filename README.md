@@ -176,7 +176,68 @@ Cada diretório tem uma função específica e bem clara na aplicação:
 
 ---
 
-## <a name="parte6"> </a>
+## <a name="parte6">Hello world</a>
+
+```ruby
+rails generate controller hello
+```
+
+Criar o index.html.erb
+
+Adiiconar no Ccntrolador 
+
+```ruby
+class HelloController < ApplicationController
+  def index
+  end
+end
+
+```
+
+e adicionar a rota da página
+
+```ruby
+Rails.application.routes.draw do
+
+  get 'hello/index'
+
+end
+
+```
+
+Start no Servidor 
+
+```ruby
+rails server
+
+# ou rails s
+```
+
+Erro ao executar:
+```
+ExecJS::ProgramError in Hello#index
+TypeError: O objeto não dá suporte para a propriedade ou método
+<%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+```
+
+Solução:
+
+Remover as linhas de /assets de aplication.js e .css
+```
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+e
+ *= require_tree .
+ *= require_self
+```
+
+[TypeError: Object doesn't support this property or method](http://stackoverflow.com/questions/29838237/typeerror-object-doesnt-support-this-property-or-method)
+
 
 [Voltar ao Índice](#indice)
 
