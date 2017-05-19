@@ -243,7 +243,110 @@ e
 
 ---
 
-## <a name="parte7"> </a>
+## <a name="parte7">Rails console</a>
+
+Criando um novo controller uma função: 
+
+```ruby
+rails generate controller my index
+```
+
+Gerar Moldel e os campos
+
+```ruby
+rails generate model person name:string age:integer 
+```
+
+Migrate
+```ruby
+rake db:migrate
+#versão 5.0
+rails db:migrate
+
+# Vai executar o procedimento de /db/migrate/
+
+class CreatePeople < ActiveRecord::Migration[5.1]
+  def change
+    create_table :people do |t|
+      t.string :name
+      t.integer :age
+
+      t.timestamps
+    end
+  end
+end
+
+```
+
+DB condole
+```ruby
+rails console
+sqlite> (comendos sql)
+```
+
+```ruby
+irb(main):001:0> Person.first
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" ORDER BY "people"."id" ASC LIMIT ?  [["LIMIT", 1]]
+=> nil
+```
+
+Adicionando um registro
+
+```ruby
+irb(main):002:0> Person.create :name => "Jose MAlcher", :age =>32
+   (0.0ms)  begin transaction
+  SQL (2.5ms)  INSERT INTO "people" ("name", "age", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Jose MAlcher"], ["age", 32], ["created_
+at", "2017-05-19 20:40:10.940235"], ["updated_at", "2017-05-19 20:40:10.940235"]]
+   (11.0ms)  commit transaction
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):003:0> Person.first
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" ORDER BY "people"."id" ASC LIMIT ?  [["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):004:0>
+
+```
+
+```ruby
+rb(main):008:0> Person.find(1)
+  Person Load (1.0ms)  SELECT  "people".* FROM "people" WHERE "people"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):009:0>
+
+```
+
+Para sair: "exit"
+
+Para desfazer ou apagar um controller
+
+```ruby
+> rails destroy controller my
+ remove  app/controllers/my_controller.rb
+      invoke  erb
+      remove    app/views/my
+      invoke  test_unit
+      remove    test/controllers/my_controller_test.rb
+      invoke  helper
+      remove    app/helpers/my_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      remove      app/assets/javascripts/my.coffee
+      invoke    scss
+      remove      app/assets/stylesheets/my.scss
+
+#ou o model
+>rails destroy model person
+ invoke  active_record
+      remove    db/migrate/20170519203503_create_people.rb
+      remove    app/models/person.rb
+      invoke    test_unit
+      remove      test/models/person_test.rb
+      remove      test/fixtures/people.yml
+
+
+```
+
+
 
 [Voltar ao Índice](#indice)
 
