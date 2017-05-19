@@ -73,7 +73,28 @@ O desenvolvimento das aplicações em Rails são implementadas usando oMODEL-VIE
 
 ---
 
-## <a name="parte4"> </a>
+## <a name="parte4">Arquitetura MVC</a>
+
+O Modelo MVC
+Esse padrão de arquitetura utilizada divide a aplicação logicamente em três categorias: modelo, vista e controle (Model-View-Controller). Cada parte do padrão MVC é uma entidade capaz de ser construída e testada separadamente. O modelo representa os dados, a vista representa a interface do usuário e o controle comanda as ações, ou seja, o modelo(model) é a informação que a aplicação trabalha, a vista (view) é a representação e o controle (controller) é o diretor da interação entre eles.
+
+O ciclo dessa estrutura começa quando o usuário interage com a interface (view) e chama um evento; o controller recebe o chamado da view e acessa o model, atualizando frequentemente a interface.
+
+[O Modelo MVC](http://www.devmedia.com.br/introducao-ao-framework-ruby-on-rails/31285)
+
+O primeiro é MVC, que significa Model View Controller. Explicando de forma bem simplista:
+
+- Model: modelo dos dados, normalmente um banco de dados, mas é mais que só interface com BD. O recomendado é que toda regra de negócio fique nele. Por exemplo, numa loja, ao gravar um novo pedido, o modelo faz todo o cálculo de frete, checagem de estoque, processamento de pagamento etc.  
+- View: como os dados serão vistos e como alguém pode interagir com esses dados, normalmente páginas HTML com forms.  
+- Controller: é quem interpreta eventos que acontecem na View e manipula os dados que estão no Model, normalmente são ações como listar, procurar, alterar, inserir e deletar dados.
+
+[MVC e Ruby on Rails, uma visão simplificada](http://blog.locaweb.com.br/artigos/tecnologia/mvc-e-ruby-on-rails-uma-visao-simplificada/)
+
+
+<img src="https://betterexplained.com/wp-content/uploads/rails/mvc-rails.png" alt="MVC" />
+
+[Intermediate Rails: Understanding Models, Views and Controllers](https://betterexplained.com/articles/intermediate-rails-understanding-models-views-and-controllers/)
+
 
 [Voltar ao Índice](#indice)
 
