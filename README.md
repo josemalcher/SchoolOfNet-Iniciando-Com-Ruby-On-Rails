@@ -478,7 +478,78 @@ Person.all
 
 ---
 
-## <a name="parte10"> </a>
+## <a name="parte10">Migrations</a>
+
+Migrations ajudam a gerenciar a evolução de um esquema utilizado por diversos bancos de dados. Foi a solução encontrada para o problema de como adicionar uma coluna no banco de dados local e propagar essa mudança para os demais desenvolvedores de um projeto e para o servidor de produção.
+
+Com as migrations, podemos descrever essas transformações em classes que podem ser controladas por sistemas de controle de versão (por exemplo, git) e executá-las em diversos bancos de dados.
+
+Sempre que executarmos a tarefa Generator -> model, o Rails se encarrega de criar uma migration inicial, localizado em db/migrate.
+
+ActiveRecord::Migration é a classe que você deve estender ao criar uma migration.
+
+Quando geramos nosso modelo na seção anterior, Rails gerou para nós uma migration (db/migrate/<timestamp>_create_restaurantes.rb). Vamos agora editar nossa migration com as informações que queremos no banco de dados.
+
+```ruby
+class CreatePeople < ActiveRecord::Migration[5.1]
+  def change
+    create_table :people do |t|
+      t.string :name
+      t.integer :age
+
+      t.timestamps
+    end
+  end
+end
+
+```
+Criando uma novo model
+```ruby
+rails generate model client
+      invoke  active_record
+      create    db/migrate/20170521171443_create_clients.rb
+      create    app/models/client.rb
+      invoke    test_unit
+      create      test/models/client_test.rb
+      create      test/fixtures/clients.yml
+
+```
+
+```ruby
+class CreateClients < ActiveRecord::Migration[5.1]
+  def change
+    create_table :clients do |t|
+
+      t.timestamps
+    end
+  end
+end
+```
+Criando migration
+
+```ruby
+rails generate migration test
+      invoke  active_record
+      create    db/migrate/20170521171649_test.rb
+# ----------------
+class Test < ActiveRecord::Migration[5.1]
+  def change
+  end
+end
+```
+Adicionando
+```ruby
+class Test < ActiveRecord::Migration[5.1]
+  def change
+    add_column :test, :name, :string
+    add_index :test, :name
+    remove_column :test, :name, :string
+  end
+end
+```
+
+[7.7 - Migrations](https://www.caelum.com.br/apostila-ruby-on-rails/active-record/#7-7-migrations)
+
 
 [Voltar ao Índice](#indice)
 
