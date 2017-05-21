@@ -366,7 +366,113 @@ ActiveRecord::Base é a classe que você deve estender para associar seu modelo 
 
 ---
 
-## <a name="parte9"> </a>
+## <a name="parte9">Trabalhando com models</a>
+
+Com a model criada.
+
+```ruby
+# Gerando o model:
+rails generate model person name:string age:integer
+
+# > rails db:migrate
+
+# > rails console
+# ----------------
+Person.first
+ Person Load (0.5ms)  SELECT  "people".* FROM "people" ORDER BY "people"."id" ASC LIMIT ?  [["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+# ----------------
+Person.find(1)
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" WHERE "people"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+# ----------------
+Person.take
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):004:0> Person.take(2)
+  Person Load (1.0ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 2]]
+=> [#<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">]
+# ----------------
+Person.create(:name =>"Maria joaquina", :age => 22)
+   (0.0ms)  begin transaction
+  SQL (2.0ms)  INSERT INTO "people" ("name", "age", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "Maria joaquina"], ["age", 22], ["create
+d_at", "2017-05-21 15:57:16.372722"], ["updated_at", "2017-05-21 15:57:16.372722"]]
+   (9.7ms)  commit transaction
+=> #<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">
+irb(main):006:0> Person.take(2)
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 2]]
+=> [#<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">, #<Person id: 2, name: "Maria
+joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]
+# ----------------
+Person.last
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" ORDER BY "people"."id" DESC LIMIT ?  [["LIMIT", 1]]
+=> #<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">
+
+# ----------------
+Person.order(:name)
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" ORDER BY "people"."name" ASC LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">, #<Pe
+rson id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]>
+
+# ----------------
+Person.order(name: :desc)
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" ORDER BY "people"."name" DESC LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">, #<
+Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">]>
+
+# ----------------
+Person.order(name: :asc)
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" ORDER BY "people"."name" ASC LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">, #<Pe
+rson id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]>
+
+# ----------------
+Person.select("name")
+  Person Load (0.5ms)  SELECT  "people"."name" FROM "people" LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: nil, name: "Jose MAlcher">, #<Person id: nil, name: "Maria joaquina">]>
+
+# ----------------
+Person.find_by name: "Jose MAlcher"
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" WHERE "people"."name" = ? LIMIT ?  [["name", "Jose MAlcher"], ["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+
+# ----------------
+erson.where(name: "Maria joaquina")
+  Person Load (1.0ms)  SELECT  "people".* FROM "people" WHERE "people"."name" = ? LIMIT ?  [["name", "Maria joaquina"], ["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]>
+
+# ----------------
+Person.where(name: "Maria joaquina").take
+  Person Load (1.0ms)  SELECT  "people".* FROM "people" WHERE "people"."name" = ? LIMIT ?  [["name", "Maria joaquina"], ["LIMIT", 1]]
+=> #<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">
+
+# ----------------
+Person.limit(2)
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 2]]
+=> #<ActiveRecord::Relation [#<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">, #<Pe
+rson id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]>
+# ----------------
+person = Person.first
+  Person Load (1.0ms)  SELECT  "people".* FROM "people" ORDER BY "people"."id" ASC LIMIT ?  [["LIMIT", 1]]
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):020:0> person.destroy
+   (0.0ms)  begin transaction
+  SQL (1.0ms)  DELETE FROM "people" WHERE "people"."id" = ?  [["id", 1]]
+   (11.0ms)  commit transaction
+=> #<Person id: 1, name: "Jose MAlcher", age: 32, created_at: "2017-05-19 20:40:10", updated_at: "2017-05-19 20:40:10">
+irb(main):021:0> Person.take(5)
+  Person Load (0.0ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 5]]
+=> [#<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]
+
+# ----------------
+Person.all
+  Person Load (0.5ms)  SELECT  "people".* FROM "people" LIMIT ?  [["LIMIT", 11]]
+=> #<ActiveRecord::Relation [#<Person id: 2, name: "Maria joaquina", age: 22, created_at: "2017-05-21 15:57:16", updated_at: "2017-05-21 15:57:16">]>
+
+
+```
+
+[7.9 - Manipulando nossos modelos pelo console](https://www.caelum.com.br/apostila-ruby-on-rails/active-record/#7-9-manipulando-nossos-modelos-pelo-console)
 
 [Voltar ao Índice](#indice)
 
