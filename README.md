@@ -555,7 +555,112 @@ end
 
 ---
 
-## <a name="parte11"> </a>
+## <a name="parte11">Trabalhando com controllers</a>
+
+O "V" de MVC representa a parte de view (visualização) da nossa aplicação, sendo ela quem tem contato com o usuário, recebe as entradas e mostra qualquer tipo de saída.
+
+Há diversas maneiras de controlar as views, sendo a mais comum delas feita através dos arquivos HTML.ERB, ou eRuby (Embedded Ruby), páginas HTML que podem receber trechos de código em Ruby.
+
+Controllers são classes que recebem uma ação de uma View e executam algum tipo de lógica ligada a um ou mais modelos. Em Rails esses controllers estendem a classe ApplicationController.
+
+As urls do servidor são mapeadas da seguinte maneira: /controller/action/id. Onde "controller" representa uma classe controladora e "action" representa um método do mesmo. "id" é um parâmetro qualquer (opcional).
+
+[Controllers e Views](https://www.caelum.com.br/apostila-ruby-on-rails/controllers-e-views/)
+
+Criando novo
+
+```
+> rails generate controller person
+      create  app/controllers/person_controller.rb
+      invoke  erb
+      create    app/views/person
+      invoke  test_unit
+      create    test/controllers/person_controller_test.rb
+      invoke  helper
+      create    app/helpers/person_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/person.coffee
+      invoke    scss
+      create      app/assets/stylesheets/person.scss
+# GERANDO O MODEL
+> rails generate model person name:
+  string, age:integer
+        invoke  active_record
+        create    db/migrate/20170522234432_create_people.rb
+        create    app/models/person.rb
+        invoke    test_unit
+        create      test/models/person_test.rb
+        create      test/fixtures/people.yml
+
+```
+```ruby
+class CreatePeople < ActiveRecord::Migration[5.1]
+  def change
+    create_table :people do |t|
+      t.string, :name
+      t.integer :age
+
+      t.timestamps
+    end
+  end
+end
+```
+
+Adicionando funções
+
+```ruby
+class PersonController < ApplicationController
+  def index
+    @people = Person.all
+    respond_to do |f|
+      f.html
+    end
+
+    def show
+      @person = Person.find(params[:id])
+
+      respond_to do |f|
+        f.html
+      end
+    end
+  end
+
+  def new
+    @person = Person.new
+
+    respond_to do |f|
+      f.html
+    end
+  end
+
+  def create
+    @person = Person.create(person_params)
+    respond_to do |f|
+      f.html{redirect_to action: 'index'}
+    end
+  end
+
+  def destroy
+    @person = Person.find(params[:id])
+    @person.destroy
+
+    respond_to do |f|
+      f.html {redirect_to action: 'index'}
+    end
+
+  end
+
+  private def person_params
+            params.require(:person).permit(:person)
+  end
+
+end
+
+```
+
+
 
 [Voltar ao Índice](#indice)
 
