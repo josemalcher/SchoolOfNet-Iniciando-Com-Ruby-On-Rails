@@ -20,9 +20,10 @@ https://www.schoolofnet.com/curso-iniciando-com-ruby-rails/
 - [Migrations](#parte10)
 - [Trabalhando com controllers](#parte11)
 - [Um pouco sobre rotas](#parte12)
-- [Validando model](#parte13)
-- [Scaffold](#parte14)
-- [Finalizando](#parte15)
+- [Trabalhando com Views](#parte13)
+- [Validando o Model](#parte14)
+- [Scaffold](#parte15)
+- [Finalizando](#parte16)
 
 
 ---
@@ -713,7 +714,7 @@ Os quatro verbos do protocolo HTTP são comumente associados às operações de 
 
 ---
 
-## <a name="parte13"> </a>
+## <a name="parte13">Trabalhando com Views</a>
 
 [Voltar ao Índice](#indice)
 
@@ -737,14 +738,3 @@ Os quatro verbos do protocolo HTTP são comumente associados às operações de 
 
 ---
 
-## <a name="parte17"> </a>
-
-[Voltar ao Índice](#indice)
-
----
-
-## <a name="parte18"> </a>
-
-[Voltar ao Índice](#indice)
-
----
