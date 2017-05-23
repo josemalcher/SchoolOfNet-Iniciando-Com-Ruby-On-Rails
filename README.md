@@ -951,19 +951,60 @@ Do controller para view
 
 ---
 
-## <a name="parte14"> </a>
+## <a name="parte14">Validando model</a>
+
+models/person.rb
+```ruby
+class Person < ApplicationRecord
+  validates :name, presence: true, format: {with: /\A[a-zA-Z]+\z/, message: "Accept only letters"}
+end
+
+```
+Logs
+```
+Started POST "/person" for 127.0.0.1 at 2017-05-23 05:09:54 -0300
+Processing by PersonController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"KRyJxObZ0U9nmS1kywhmWV8WCLyhyrDXegdqWUgGTaYTtxvvNr/xfb
+hiwuHCSCoOmxDY62XDDPLY7IjfLlFE1Q==", "person"=>{"name"=>"jose2", "age"=>""}, "commit"=>"Create Person"}
+   (1.0ms)  begin transaction
+   (1.0ms)  rollback transaction
+Redirected to http://localhost:3000/person
+Completed 302 Found in 40ms (ActiveRecord: 2.0ms)
+
+```
+
+7.14 - Validações
+Ao inserir um registro no banco de dados é bem comum a entrada de dados inválidos.
+
+Existem alguns campos de preenchimento obrigatório, outros que só aceitem números, que não podem conter dados já existentes, tamanho máximo e mínimo etc.
+
+Para ter certeza que um campo foi preenchido antes de salvar no banco de dados, é necessário pensar em três coisas: "como validar a entrada?", "qual o campo a ser validado?" e "o que acontece ao tentar salvar uma entrada inválida?".
+
+Para validar esses registros, podemos implementar o método validate em qualquer ActiveRecord, porém o Rails disponibiliza alguns comandos prontos para as validações mais comuns. São eles:
+
+- validates_presence_of: verifica se um campo está preenchido;
+- validates_size_of: verifica o comprimento do texto do campo;
+- validates_uniqueness_of: verifica se não existe outro registro no banco de dados que tenha a mesma informação num determinado campo;
+- validates_numericality_of: verifica se o preenchimento do campo é numérico;
+- validates_associated: verifica se o relacionamento foi feito corretamente;
+- etc...
+
+Todos estes métodos disponibilizam uma opção (:message) para personalizar a mensagem de erro que será exibida caso a regra não seja cumprida. Caso essa opção não seja utilizada, será exibida uma mensagem padrão.
+
+[7.14 - Validações](https://www.caelum.com.br/apostila-ruby-on-rails/active-record/#7-14-validacoes)
+
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte15"> </a>
+## <a name="parte15">Scaffold</a>
 
 [Voltar ao Índice](#indice)
 
 ---
 
-## <a name="parte16"> </a>
+## <a name="parte16">Finalizando</a>
 
 [Voltar ao Índice](#indice)
 
