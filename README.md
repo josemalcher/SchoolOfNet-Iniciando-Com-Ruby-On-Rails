@@ -666,7 +666,48 @@ end
 
 ---
 
-## <a name="parte12"> </a>
+## <a name="parte12">Um pouco sobre rotas</a>
+
+Ajuste para objeter retorno (json):
+```ruby
+  # GET /person
+  def index
+    @people = Person.all
+    respond_to do |f|
+      f.html
+      f.json{render :json => @people}
+    end
+  end
+```
+
+```ruby
+Rails.application.routes.draw do
+
+  # get 'hello/index'
+  root :to => 'hello#index'
+
+  get '/person' => 'person#index'
+
+# Outra forma
+  resources :person
+  resources :hello
+
+end
+
+
+```
+
+As operações disponíveis para cada um dos recursos são:
+
+- GET: retorna uma representação do recurso
+- POST: criação de um novo recurso
+- PUT: altera o recurso
+- DELETE: remove o recurso
+
+Os quatro verbos do protocolo HTTP são comumente associados às operações de CRUD em sistemas Restful. Há uma grande discussão dos motivos pelos quais usamos POST para criação (INSERT) e PUT para alteração (UPDATE). A razão principal é que o protocolo HTTP especifica que a operação PUT deve ser idempotente, já POST não.
+
+
+[Rotas](https://www.caelum.com.br/apostila-ruby-on-rails/rotas/)
 
 [Voltar ao Índice](#indice)
 
