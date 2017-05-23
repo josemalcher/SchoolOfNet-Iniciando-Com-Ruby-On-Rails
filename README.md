@@ -1055,6 +1055,10 @@ rails db:migrate
 
 ## <a name="parte16">Finalizando</a>
 
+Melhor Referencia: 
+
+[Desenv. Ágil para Web com Ruby on Rails](https://www.caelum.com.br/apostila-ruby-on-rails/)
+
 [Voltar ao Índice](#indice)
 
 ---
