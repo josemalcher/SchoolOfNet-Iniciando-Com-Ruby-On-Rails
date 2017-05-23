@@ -1000,6 +1000,55 @@ Todos estes métodos disponibilizam uma opção (:message) para personalizar a m
 
 ## <a name="parte15">Scaffold</a>
 
+[10.1 - Um pouco mais sobre o Scaffold](https://www.caelum.com.br/apostila-ruby-on-rails/completando-o-sistema/#10-1-um-pouco-mais-sobre-o-scaffold)
+
+Vimos que quando usamos o gerador scaffold o Rails cria os arquivos necessários em todas as camadas. Controller, Model, Views e até mesmo arquivos de testes e a Migration. Para concluir nossos projeto precisamos criar apenas Controller + Views pois tanto o modelo quanto as migrations já estão prontos. Para isso vamos usar o mesmo gerador scaffold mas vamos passar os parâmetros: --migration=false para ele ignorar a criação da migration e o parâmetro -s que é a abreviação para --skip que faz com que o rails "pule" os arquivos já existentes.
+
+```ruby
+> rails generate scaffold book title
+:string isbn:string page:integer
+      invoke  active_record
+      create    db/migrate/20170523081642_create_books.rb
+      create    app/models/book.rb
+      invoke    test_unit
+      create      test/models/book_test.rb
+      create      test/fixtures/books.yml
+      invoke  resource_route
+       route    resources :books
+      invoke  scaffold_controller
+      create    app/controllers/books_controller.rb
+      invoke    erb
+      create      app/views/books
+      create      app/views/books/index.html.erb
+      create      app/views/books/edit.html.erb
+      create      app/views/books/show.html.erb
+      create      app/views/books/new.html.erb
+      create      app/views/books/_form.html.erb
+      invoke    test_unit
+      create      test/controllers/books_controller_test.rb
+      invoke    helper
+      create      app/helpers/books_helper.rb
+      invoke      test_unit
+      invoke    jbuilder
+      create      app/views/books/index.json.jbuilder
+      create      app/views/books/show.json.jbuilder
+      create      app/views/books/_book.json.jbuilder
+      invoke  test_unit
+      create    test/system/books_test.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/books.coffee
+      invoke    scss
+      create      app/assets/stylesheets/books.scss
+      invoke  scss
+      create    app/assets/stylesheets/scaffolds.scss
+
+```
+Migrate
+```
+rails db:migrate
+```
+
 [Voltar ao Índice](#indice)
 
 ---
