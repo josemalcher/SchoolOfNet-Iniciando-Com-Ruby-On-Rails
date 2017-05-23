@@ -716,6 +716,237 @@ Os quatro verbos do protocolo HTTP são comumente associados às operações de 
 
 ## <a name="parte13">Trabalhando com Views</a>
 
+Material da aula:
+
+index.html.erb
+```html
+<h1>Listing People</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <thbody>
+    <% @people.each do |p| %>
+      <tr>
+        <td> <%= p.name %> </td>
+        <td> <%= p.age %> </td>
+      </tr>
+    <% end %>
+  </thbody>
+</table>
+```
+
+new.html.erb
+```html
+<h1>New Person</h1>
+
+  <%= render 'form' %>
+
+```
++_form.html.erb
+````ruby
+<%= form_for @person, :url => {:action => "create"} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :age %>
+  <%= f.text_field :age %>
+
+  <br>
+
+  <%= f.submit %>
+
+<br>
+    <%= link_to("Back to list", :controller => "person", :action => "index") %>
+
+
+<% end %>
+
+````
+
+person_controller.rb
+```ruby
+class PersonController < ApplicationController
+
+  # GET /person
+  def index
+    @people = Person.all
+    respond_to do |f|
+      f.html
+      f.json{render :json => @people}
+    end
+  end
+
+
+  # GET /person/1
+  def show
+    @person = Person.find(params[:id])
+
+    respond_to do |f|
+      f.html
+    end
+  end
+
+
+  # GET /person/new
+  def new
+    @person = Person.new
+
+    respond_to do |f|
+      f.html
+    end
+  end
+
+  # POST /person
+  def create
+    @person = Person.create(person_params)
+    respond_to do |f|
+      f.html {redirect_to action: 'index'}
+    end
+  end
+
+  # DELETE /person/1
+  def destroy
+    @person = Person.find(params[:id])
+    @person.destroy
+
+    respond_to do |f|
+      f.html {redirect_to action: 'index'}
+    end
+
+  end
+
+  private def person_params
+    params.require(:person).permit(:name, :age)
+  end
+
+end
+
+```
+
+routes.rb
+```ruby
+Rails.application.routes.draw do
+
+  # get 'hello/index'
+  root :to => 'hello#index'
+
+  get '/person' => 'person#index'
+  get '/person/new' => 'person#new'
+  post 'person' => 'person#create'
+
+
+  # Outra forma
+  # resources :person
+  # resources :hello
+
+end
+
+```
+Material extra aula:
+
+ERB
+
+ERB é uma implementação de eRuby que já acompanha a linguagem Ruby. Seu funcionamento é similar ao dos arquivos JSP/ASP: arquivos html com injeções de código. A ideia é que o HTML serve como um template, e outros elementos são dinamicamente inseridos em tempo de renderização.
+
+sintaxe básica
+
+Para uma página aceitar código Ruby, ela deve estar entre "<%" e "%>". Há uma variação deste operador, o "<%=", que não só executa códigos Ruby, mas também imprime o resultado na página HTML.
+Logo, o seguinte código ERB:
+```html
+<html>
+  <body>
+    <p>Meu nome é: <%= "João" %></p>
+    <p>Não vai imprimir nada ao lado: <% "Não será impresso" %></p>
+  </body>
+</html>
+```
+
+Irá resultar em:
+```html
+<html>
+  <body>
+    <p>Meu nome é: João</p>
+    <p>Não vai imprimir nada ao lado: </p>
+  </body>
+</html>
+```
+if, else e blocos
+
+O operador "<%" é muito útil quando precisamos que um pedaço de HTML seja adicionado com uma condição. Por exemplo:
+```html
+<body>
+  <% if nomes.empty? %>
+    <div class="popup">
+      Nenhum nome
+    </div>
+  <% else %>
+    <div class="listagem">
+      <%= nomes %>
+    </div>
+  <% end %>
+</body>
+```
+
+Caso a variável nomes seja igual à [], o resultado será:
+
+```html
+<body>
+    <div class="popup">
+      Nenhum nome
+    </div>
+</body>
+```
+
+Por outro lado, se nomes for igual à ["João", "Maria"] o resultado será:
+
+```html
+<body>
+    <div class="listagem">
+      ["João", "Maria"]
+    </div>
+</body>
+```
+
+Podemos ainda iterar pelos nomes imprimindo-os em uma lista, basta mudar o ERB para:
+
+```html
+<body>
+  <% if nomes.empty? %>
+    <div class="popup">
+      Nenhum nome
+    </div>
+  <% else %>
+    <ul class="listagem">
+      <% nomes.each do |nome| %>
+        <li><%= nome %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</body>
+```
+
+Para nomes igual à ["João", "Maria"] o resultado seria:
+
+```html
+<body>
+    <ul class="listagem">
+        <li><%= João %></li>
+        <li><%= Maria %></li>
+    </ul>
+</body>
+```
+
+Do controller para view
+
+É importante notar que todos os atributos de instância (@variavel) de um controlador estão disponíveis em sua view. Além disso, ela deve ter o mesmo nome da action, e estar na pasta com o nome do controlador o que significa que a view da nossa action index do controlador restaurantes_controller.rb deve estar em: app/views/restaurantes/index.html.erb.
+
+[9.4 - Trabalhando com a View: O ERB](https://www.caelum.com.br/apostila-ruby-on-rails/controllers-e-views/#9-4-trabalhando-com-a-view-o-erb)
+
 [Voltar ao Índice](#indice)
 
 ---
